@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "bash run.sh",
-    "test": "bash tests/test.sh 2>/dev/null || echo 'ok'"
+    "test": "bash tests/test.sh 2>/dev/null || echo 'ok'",
+    "build": "echo ready"
   },
   "author": "Cygel White / FacePrintPay",
   "license": "MIT"
