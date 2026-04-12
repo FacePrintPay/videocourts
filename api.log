@@ -1,0 +1,5 @@
+nohup: ignoring input
+127.0.0.1 - - [10/Apr/2026 09:42:09] "POST /embedding HTTP/1.1" 200 -
+127.0.0.1 - - [10/Apr/2026 09:42:53] "POST /embedding HTTP/1.1" 200 -
+127.0.0.1 - - [10/Apr/2026 09:43:03] "POST /tokenize HTTP/1.1" 200 -
+127.0.0.1 - - [10/Apr/2026 09:43:03] "POST /completion HTTP/1.1" 200 -
