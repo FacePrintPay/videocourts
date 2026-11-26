@@ -1,0 +1,233 @@
+{
+  "updated_at": "2026-11-22T15:07:58.708507+00:00",
+  "site_base": "https://constellation25.github.io/AiMetaverse/",
+  "packs_count": 45,
+  "broken_links_count": 0,
+  "routes": [
+    {
+      "broken_path": "../why-ai/avatar-create/index.html",
+      "target_path": "../avatar-create/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../enterprise/contact/index.html",
+      "target_path": "../contact/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../enterprise/avatar-create/index.html",
+      "target_path": "../avatar-create/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../tools/labs/index.html",
+      "target_path": "../labs/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../tools/enterprise/index.html",
+      "target_path": "../enterprise/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../tools/education/index.html",
+      "target_path": "../education/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../labs/education/index.html",
+      "target_path": "../education/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../labs/why-ai/index.html",
+      "target_path": "../why-ai/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../labs/metabox/index.html",
+      "target_path": "../metabox/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../education/labs/index.html",
+      "target_path": "../labs/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../education/developers/index.html",
+      "target_path": "../developers/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../education/signup/index.html",
+      "target_path": "../signup/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../education/avatar-create/index.html",
+      "target_path": "../avatar-create/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../worlds/metabox/index.html",
+      "target_path": "../metabox/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../voice-lipsync/twin-studio/index.html",
+      "target_path": "../twin-studio/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../voice-lipsync/avatar-create/index.html",
+      "target_path": "../avatar-create/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../avatar-create/avatar-create.html",
+      "target_path": "../avatar-create/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../avatar-create/avatar/index.html",
+      "target_path": "../avatar/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../avatar-create/metabox/index.html",
+      "target_path": "../metabox/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../avatar-create/developers/index.html",
+      "target_path": "../developers/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../avatar-create/worlds/index.html",
+      "target_path": "../worlds/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../avatar-create/enterprise/index.html",
+      "target_path": "../enterprise/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../avatar-create/twin-studio/index.html",
+      "target_path": "../twin-studio/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../avatar-create/voice-lipsync/index.html",
+      "target_path": "../voice-lipsync/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../twin-studio/avatar-create/index.html",
+      "target_path": "../avatar-create/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../prompter/avatar-create/index.html",
+      "target_path": "../avatar-create/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../ai-education/ai-education.html",
+      "target_path": "../ai-education/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../ai4reelz/ai4reelz.html",
+      "target_path": "../ai4reelz/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../webstudio/webstudio.html",
+      "target_path": "../webstudio/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../commz/commz.html",
+      "target_path": "../commz/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../vstore/vstore.html",
+      "target_path": "../vstore/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../bitbucks/bitbucks.html",
+      "target_path": "../bitbucks/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../mars/mars.html",
+      "target_path": "../mars/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../records/records.html",
+      "target_path": "../records/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../avatar/avatar-create/index.html",
+      "target_path": "../avatar-create/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../developers/education/index.html",
+      "target_path": "../education/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../developers/enterprise/index.html",
+      "target_path": "../enterprise/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../developers/contact/index.html",
+      "target_path": "../contact/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../communities/worlds/index.html",
+      "target_path": "../worlds/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../communities/avatar-create/index.html",
+      "target_path": "../avatar-create/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../signup/signin/index.html",
+      "target_path": "../signin/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../signin/signup/index.html",
+      "target_path": "../signup/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../signin/contact/index.html",
+      "target_path": "../contact/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../privacy/news/index.html",
+      "target_path": "../news/index.html",
+      "target_url": null
+    },
+    {
+      "broken_path": "../privacy/contact/index.html",
+      "target_path": "../contact/index.html",
+      "target_url": null
+    }
+  ]
+}

@@ -1,0 +1,549 @@
+{
+  "efilings": [
+    {
+      "id": "ef_1795643436338",
+      "case_id": "NC-2026-001",
+      "doc_type": "Remote Hearing Notice",
+      "party": "Counsel",
+      "filed_at": "2026-11-25 16:50:36",
+      "status": "filed"
+    },
+    {
+      "id": "ef_1795643452431",
+      "case_id": "NC-2026-001",
+      "doc_type": "Remote Hearing Notice",
+      "party": "Counsel",
+      "filed_at": "2026-11-25 16:50:52",
+      "status": "filed"
+    },
+    {
+      "id": "ef_1795643946214",
+      "case_id": "NC-2026-001",
+      "doc_type": "Appearance Motion",
+      "party": "Counsel",
+      "filed_at": "2026-11-25 16:59:06",
+      "status": "filed"
+    }
+  ],
+  "esignatures": [
+    {
+      "id": "es_1795643436376",
+      "signer_name": "Cygel White",
+      "document_title": "01272022 Amended Remote Hearing Protocols",
+      "consent_checked": true,
+      "signed_at": "2026-11-25 16:50:36",
+      "status": "signed"
+    },
+    {
+      "id": "es_1795643452478",
+      "signer_name": "Cygel White",
+      "document_title": "01272022 Amended Remote Hearing Protocols",
+      "consent_checked": true,
+      "signed_at": "2026-11-25 16:50:52",
+      "status": "signed"
+    },
+    {
+      "id": "es_1795643946247",
+      "signer_name": "Cygel White",
+      "document_title": "Remote Hearing Consent",
+      "consent_checked": true,
+      "signed_at": "2026-11-25 16:59:06",
+      "status": "signed"
+    }
+  ],
+  "calendar_events": [
+    {
+      "id": "cal_001",
+      "case_id": "NC-2026-001",
+      "title": "Virtual Appearance & Docket Review",
+      "date": "2026-11-26",
+      "time": "09:30",
+      "mode": "VideoCourts"
+    }
+  ],
+  "virtual_appearances": [
+    {
+      "id": "va_1795643436417",
+      "case_id": "NC-2026-001",
+      "requester_name": "Cygel White",
+      "role": "counsel",
+      "reason": "Remote hearing protocol",
+      "requested_date": "2026-11-26",
+      "status": "submitted"
+    },
+    {
+      "id": "va_1795643452524",
+      "case_id": "NC-2026-001",
+      "requester_name": "Cygel White",
+      "role": "counsel",
+      "reason": "Remote hearing protocol",
+      "requested_date": "2026-11-26",
+      "status": "submitted"
+    },
+    {
+      "id": "va_1795643946296",
+      "case_id": "NC-2026-001",
+      "requester_name": "Cygel White",
+      "role": "counsel",
+      "reason": "Remote hearing",
+      "requested_date": "2026-11-26",
+      "status": "submitted"
+    }
+  ],
+  "documents": [],
+  "totalrecall_log": [
+    {
+      "id": "tr_1795643436340",
+      "ts": "2026-11-25T21:50:36Z",
+      "event": "efile_submitted",
+      "detail": {
+        "id": "ef_1795643436338",
+        "case_id": "NC-2026-001",
+        "doc_type": "Remote Hearing Notice",
+        "party": "Counsel",
+        "filed_at": "2026-11-25 16:50:36",
+        "status": "filed"
+      },
+      "sha256": "5aed4f997cf840bff84badd11a8cafeb684205cdc53c4565a653d7c65701500b"
+    },
+    {
+      "id": "tr_1795643436377",
+      "ts": "2026-11-25T21:50:36Z",
+      "event": "esign_completed",
+      "detail": {
+        "id": "es_1795643436376",
+        "signer_name": "Cygel White",
+        "document_title": "01272022 Amended Remote Hearing Protocols",
+        "consent_checked": true,
+        "signed_at": "2026-11-25 16:50:36",
+        "status": "signed"
+      },
+      "sha256": "88c559b92fa42f78f6fbea018eb8d9b4cdb11e89106a39416649107f8f86aa33"
+    },
+    {
+      "id": "tr_1795643436418",
+      "ts": "2026-11-25T21:50:36Z",
+      "event": "virtual_appearance_requested",
+      "detail": {
+        "id": "va_1795643436417",
+        "case_id": "NC-2026-001",
+        "requester_name": "Cygel White",
+        "role": "counsel",
+        "reason": "Remote hearing protocol",
+        "requested_date": "2026-11-26",
+        "status": "submitted"
+      },
+      "sha256": "1cc7fd52f64b7aab663b44ab74d911c8c9a44d0373b7edb5299312425e949f0e"
+    },
+    {
+      "id": "tr_1795643452432",
+      "ts": "2026-11-25T21:50:52Z",
+      "event": "efile_submitted",
+      "detail": {
+        "id": "ef_1795643452431",
+        "case_id": "NC-2026-001",
+        "doc_type": "Remote Hearing Notice",
+        "party": "Counsel",
+        "filed_at": "2026-11-25 16:50:52",
+        "status": "filed"
+      },
+      "sha256": "343396e81b47e6fab3290ed5a8624f25e82b6e5e316ba8d1e921ad5eaadeaae5"
+    },
+    {
+      "id": "tr_1795643452479",
+      "ts": "2026-11-25T21:50:52Z",
+      "event": "esign_completed",
+      "detail": {
+        "id": "es_1795643452478",
+        "signer_name": "Cygel White",
+        "document_title": "01272022 Amended Remote Hearing Protocols",
+        "consent_checked": true,
+        "signed_at": "2026-11-25 16:50:52",
+        "status": "signed"
+      },
+      "sha256": "b90b2ada80264436b4751d8ce98e8ae22c0c1795c98c811d926e24c5438d3df8"
+    },
+    {
+      "id": "tr_1795643452525",
+      "ts": "2026-11-25T21:50:52Z",
+      "event": "virtual_appearance_requested",
+      "detail": {
+        "id": "va_1795643452524",
+        "case_id": "NC-2026-001",
+        "requester_name": "Cygel White",
+        "role": "counsel",
+        "reason": "Remote hearing protocol",
+        "requested_date": "2026-11-26",
+        "status": "submitted"
+      },
+      "sha256": "d9314059db44d608eb6d96b468f8a9eb498846f832a4aa09507b85b806701125"
+    },
+    {
+      "id": "tr_1795643946216",
+      "ts": "2026-11-25T21:59:06Z",
+      "event": "efile_submitted",
+      "detail": {
+        "id": "ef_1795643946214",
+        "case_id": "NC-2026-001",
+        "doc_type": "Appearance Motion",
+        "party": "Counsel",
+        "filed_at": "2026-11-25 16:59:06",
+        "status": "filed"
+      },
+      "sha256": "c939d8315e1fa8d7af408dee3591b9dd3a35700716109b9827dd5f16d0c75e88"
+    },
+    {
+      "id": "tr_1795643946248",
+      "ts": "2026-11-25T21:59:06Z",
+      "event": "esign_completed",
+      "detail": {
+        "id": "es_1795643946247",
+        "signer_name": "Cygel White",
+        "document_title": "Remote Hearing Consent",
+        "consent_checked": true,
+        "signed_at": "2026-11-25 16:59:06",
+        "status": "signed"
+      },
+      "sha256": "16cb24122fd4b6436a63ef9e7d7169995caf661bdb30b942d86223f0badea0ce"
+    },
+    {
+      "id": "tr_1795643946297",
+      "ts": "2026-11-25T21:59:06Z",
+      "event": "virtual_appearance_requested",
+      "detail": {
+        "id": "va_1795643946296",
+        "case_id": "NC-2026-001",
+        "requester_name": "Cygel White",
+        "role": "counsel",
+        "reason": "Remote hearing",
+        "requested_date": "2026-11-26",
+        "status": "submitted"
+      },
+      "sha256": "4658d16a6a5c3c7e1a6f2ad232489b14b24cc0e796a7e74e5dd601f26726a7fa"
+    },
+    {
+      "id": "tr_1795644499026",
+      "ts": "2026-11-25T22:08:19Z",
+      "event": "alfai_grok_assist",
+      "prev_hash": "4658d16a6a5c3c7e1a6f2ad232489b14b24cc0e796a7e74e5dd601f26726a7fa",
+      "detail": {
+        "case_id": "NC-2026-001",
+        "mode": "ALFAI + Grok Legal Research",
+        "prompt": "Remote hearing protocol & motion checklist"
+      },
+      "sha256": "c88e6caca166980ba8c5d852925f1bd7b6c84fbca15bef4b8f60c7ae2f09b501"
+    },
+    {
+      "id": "tr_1795646829733",
+      "ts": "2026-11-25T22:47:09Z",
+      "event": "court_filing_hash_anchor",
+      "prev_hash": "c88e6caca166980ba8c5d852925f1bd7b6c84fbca15bef4b8f60c7ae2f09b501",
+      "detail": {
+        "payload_sha256": "c3e98f88653d9e2ae150d8115a14d20ce1c6e49ae673ed68acbc67a9ae79d450",
+        "case_id": "NC-2026-001",
+        "offchain_pii_stored": false
+      },
+      "sha256": "50e59afe30046a0d782494166d4b9ee699b2a9270ca9ff958ef74dbbf631d597"
+    },
+    {
+      "id": "tr_1795647057775",
+      "ts": "2026-11-25T22:50:57Z",
+      "event": "video_room_signal",
+      "prev_hash": "50e59afe30046a0d782494166d4b9ee699b2a9270ca9ff958ef74dbbf631d597",
+      "detail": {
+        "room_id": "NC-2026-001-ROOM",
+        "role": "Judge",
+        "signal_type": "room_initialized"
+      },
+      "sha256": "1a98d14ea55edab3bc3115c0ea1feef800658e096fb83ed30493e7b2e718e186"
+    },
+    {
+      "id": "tr_1795648517164",
+      "ts": "2026-11-25T23:15:17Z",
+      "event": "court_filing_hash_anchor",
+      "prev_hash": "1a98d14ea55edab3bc3115c0ea1feef800658e096fb83ed30493e7b2e718e186",
+      "detail": {
+        "payload_sha256": "84183a7c84dc805cf155c4cc23d05108cbaa8a0371adb207253ec31315cb3273",
+        "case_id": "NC-2026-001",
+        "offchain_pii_stored": false
+      },
+      "sha256": "0f9c6025389066bd761bb9c0b815075339d1c2f1f96d010ed73e73c5a21f4154"
+    },
+    {
+      "id": "tr_1795648520597",
+      "ts": "2026-11-25T23:15:20Z",
+      "event": "video_room_signal",
+      "prev_hash": "0f9c6025389066bd761bb9c0b815075339d1c2f1f96d010ed73e73c5a21f4154",
+      "detail": {
+        "room_id": "NC-2026-001-ROOM",
+        "role": "Judge",
+        "signal_type": "presence"
+      },
+      "sha256": "4b5a6f45de6d909dbb43191967fdb4c9caa17652335d3cd1fa0f845bb8054912"
+    },
+    {
+      "id": "tr_1795648651561",
+      "ts": "2026-11-25T23:17:31Z",
+      "event": "onboarding_completed",
+      "prev_hash": "4b5a6f45de6d909dbb43191967fdb4c9caa17652335d3cd1fa0f845bb8054912",
+      "detail": {
+        "id": "onb_1795648651558",
+        "full_name": "Participant",
+        "role": "Court Admin",
+        "jurisdiction": "NC",
+        "accepted_tos": true,
+        "accepted_privacy": true,
+        "completed_at": "2026-11-25 18:17:31"
+      },
+      "sha256": "48ed68538460a43b30841f343a2b6510c28c3d71f163d51da07a2cac87a6961c"
+    },
+    {
+      "id": "tr_1795649449991",
+      "ts": "2026-11-25T23:30:49Z",
+      "event": "court_license_saved",
+      "prev_hash": "48ed68538460a43b30841f343a2b6510c28c3d71f163d51da07a2cac87a6961c",
+      "detail": {
+        "license_id": "LIC-US-NC-0001",
+        "jurisdiction_code": "US-NC",
+        "status": "active"
+      },
+      "sha256": "b6d2021be9bf0c1cdb7cdd61ea5c76722ed80b4077192fb873514e43e5533c35"
+    },
+    {
+      "id": "tr_1795649450025",
+      "ts": "2026-11-25T23:30:50Z",
+      "event": "billing_invoice_recorded",
+      "prev_hash": "b6d2021be9bf0c1cdb7cdd61ea5c76722ed80b4077192fb873514e43e5533c35",
+      "detail": {
+        "invoice_id": "INV-00001",
+        "jurisdiction_code": "US-NC",
+        "amount_cents": 49000,
+        "status": "pending"
+      },
+      "sha256": "382e4aae1f431b1a29e9d0ce16b6fd014fa9d7b1d62937b57f04f78e473d0938"
+    },
+    {
+      "id": "tr_1795651432027",
+      "ts": "2026-11-26T00:03:52Z",
+      "event": "server_approval_bot_sync",
+      "prev_hash": "382e4aae1f431b1a29e9d0ce16b6fd014fa9d7b1d62937b57f04f78e473d0938",
+      "detail": {
+        "synced_count": 1
+      },
+      "sha256": "e366aeb2031f910d7cb25309ffeddb8383c34e25cd1fab1801a1a4ceed94e3f9"
+    },
+    {
+      "id": "tr_1795653091442",
+      "ts": "2026-11-26T00:31:31Z",
+      "event": "paas_sms_device_bound",
+      "prev_hash": "e366aeb2031f910d7cb25309ffeddb8383c34e25cd1fab1801a1a4ceed94e3f9",
+      "detail": {
+        "sms_consent": true,
+        "mobile_device_bound": true,
+        "device_hash": "-DEV01"
+      },
+      "sha256": "735b55473182d71dfa2a5cc2c5066ccc669706726912e393cabdc06f631f06cf"
+    },
+    {
+      "id": "tr_1795653102451",
+      "ts": "2026-11-26T00:31:42Z",
+      "event": "biometric_challenge_routed",
+      "prev_hash": "735b55473182d71dfa2a5cc2c5066ccc669706726912e393cabdc06f631f06cf",
+      "detail": {
+        "challenge_id": "BIO-DF5161BE61AC",
+        "surface": "web_to_mobile",
+        "modality": "face_or_fingerprint",
+        "stores_biometric_data": false
+      },
+      "sha256": "c591513560b69df6335eed1faad183eeb92508eb2c8b40be6c6813e5152fd8de"
+    },
+    {
+      "id": "tr_1795653102731",
+      "ts": "2026-11-26T00:31:42Z",
+      "event": "biometric_login_confirmed",
+      "prev_hash": "c591513560b69df6335eed1faad183eeb92508eb2c8b40be6c6813e5152fd8de",
+      "detail": {
+        "challenge_id": "BIO-DF5161BE61AC",
+        "stores_biometric_data": false
+      },
+      "sha256": "7fbc96f887d5f514a56f3ed1b73790f7dec591987cabfb40865d2c5f8d510003"
+    }
+  ],
+  "blockchain_blocks": [
+    {
+      "index": 0,
+      "timestamp": "2026-11-25 17:47:09",
+      "event_type": "court_filing_hash_anchor",
+      "payload_sha256": "c3e98f88653d9e2ae150d8115a14d20ce1c6e49ae673ed68acbc67a9ae79d450",
+      "prev_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "block_hash": "a60eeeed91b736384c479d16a5bd97d56e75b54538b77af479d951cd9c980219"
+    },
+    {
+      "index": 1,
+      "timestamp": "2026-11-25 18:15:17",
+      "event_type": "court_filing_hash_anchor",
+      "payload_sha256": "84183a7c84dc805cf155c4cc23d05108cbaa8a0371adb207253ec31315cb3273",
+      "prev_hash": "a60eeeed91b736384c479d16a5bd97d56e75b54538b77af479d951cd9c980219",
+      "block_hash": "e4e97e82d1a64ff67c4efe1d24f6e451a0a3474fd9b48b18591733f98aae9aa2"
+    }
+  ],
+  "video_rooms": {
+    "NC-2026-001-ROOM": {
+      "peers": [
+        "Judge"
+      ],
+      "signals": [
+        {
+          "role": "Judge",
+          "signal_type": "room_initialized",
+          "at": "2026-11-25 17:50:57"
+        },
+        {
+          "role": "Judge",
+          "signal_type": "presence",
+          "at": "2026-11-25 18:15:20"
+        }
+      ]
+    }
+  },
+  "onboarding_profiles": [
+    {
+      "id": "onb_1795648651558",
+      "full_name": "Participant",
+      "role": "Court Admin",
+      "jurisdiction": "NC",
+      "accepted_tos": true,
+      "accepted_privacy": true,
+      "completed_at": "2026-11-25 18:17:31"
+    }
+  ],
+  "court_licenses": [
+    {
+      "license_id": "LIC-US-NC-0001",
+      "jurisdiction_code": "US-NC",
+      "template_fallback": true,
+      "court_name": "Guilford Remote Hearing Pilot",
+      "tier": "pilot_nc_template",
+      "status": "active",
+      "seat_limit": 25,
+      "expires_at": "2027-11-25",
+      "updated_at": "2026-11-25 18:30:49"
+    }
+  ],
+  "billing_invoices": [
+    {
+      "invoice_id": "INV-00001",
+      "license_id": "UNLINKED",
+      "jurisdiction_code": "US-NC",
+      "account_name": "Guilford Remote Hearing Pilot",
+      "plan_label": "Court Remote Hearing License",
+      "amount_cents": 49000,
+      "currency": "USD",
+      "status": "pending",
+      "created_at": "2026-11-25 18:30:50"
+    }
+  ],
+  "court_virtual_slots": [
+    {
+      "slot_id": "SLOT-NC-0900",
+      "jurisdiction_code": "US-NC",
+      "date": "2026-12-01",
+      "window": "09:00-09:20 EST",
+      "room": "Virtual-Room-A",
+      "status": "booked",
+      "assigned_request_id": "REQ-0001"
+    },
+    {
+      "slot_id": "SLOT-NC-0920",
+      "jurisdiction_code": "US-NC",
+      "date": "2026-12-01",
+      "window": "09:20-09:40 EST",
+      "room": "Virtual-Room-A",
+      "status": "available",
+      "assigned_request_id": null
+    },
+    {
+      "slot_id": "SLOT-NC-1000",
+      "jurisdiction_code": "US-NC",
+      "date": "2026-12-01",
+      "window": "10:00-10:20 EST",
+      "room": "Virtual-Room-B",
+      "status": "available",
+      "assigned_request_id": null
+    }
+  ],
+  "schedule_requests": [
+    {
+      "request_id": "REQ-0001",
+      "slot_id": "SLOT-NC-0900",
+      "jurisdiction_code": "US-NC",
+      "user_ref": "pilot-user@example.org",
+      "case_ref": "",
+      "status": "approved_scheduled",
+      "created_at": "2026-11-25 19:03:51",
+      "scheduled_window": "09:00-09:20 EST",
+      "virtual_room": "Virtual-Room-A",
+      "user_synced": true,
+      "approved_by": "server_approval_bot",
+      "approved_at": "2026-11-25 19:03:52"
+    }
+  ],
+  "user_onboarding_records": {
+    "bound-user@example.org": {
+      "user_ref": "bound-user@example.org",
+      "idme_verified": false,
+      "sync_pin_4digit": null,
+      "pin_synced": false,
+      "biometric_onboarded": true,
+      "biometric_consent": true,
+      "video_instructions_completed": false,
+      "virtual_court_rules_accepted": false,
+      "digital_agreements_signed": false,
+      "fee_paid_cents": 0,
+      "fee_type": null,
+      "court_approved": false,
+      "approved_by": null,
+      "updated_at": "2026-11-25 19:31:31",
+      "phone_number": "+1-336-555-0199",
+      "sms_consent": true,
+      "sms_consented_at": "2026-11-25 19:31:31",
+      "mobile_device_bound": true,
+      "mobile_device_hash": "-DEV01",
+      "last_biometric_challenge_id": "BIO-DF5161BE61AC",
+      "login_confirmed": true,
+      "login_method": "mobile_device_biometric(face_or_fingerprint)",
+      "login_confirmed_at": "2026-11-25 19:31:42"
+    },
+    "checkpoint-user@example.org": {
+      "user_ref": "checkpoint-user@example.org",
+      "idme_verified": false,
+      "sync_pin_4digit": null,
+      "pin_synced": false,
+      "biometric_onboarded": false,
+      "biometric_consent": false,
+      "video_instructions_completed": false,
+      "virtual_court_rules_accepted": false,
+      "digital_agreements_signed": false,
+      "fee_paid_cents": 0,
+      "fee_type": null,
+      "court_approved": false,
+      "approved_by": null,
+      "updated_at": "2026-11-25 19:37:55",
+      "idme_verification_id": "ver_test_01",
+      "idme_onboarded": true,
+      "live_agent_processed": false
+    }
+  },
+  "biometric_challenges": {
+    "BIO-DF5161BE61AC": {
+      "challenge_id": "BIO-DF5161BE61AC",
+      "user_ref": "bound-user@example.org",
+      "surface": "web_to_mobile",
+      "modality": "face_or_fingerprint",
+      "stores_biometric_data": false,
+      "status": "confirmed_on_mobile_device",
+      "created_at": "2026-11-25 19:31:42",
+      "confirmed_at": "2026-11-25 19:31:42"
+    }
+  }
+}

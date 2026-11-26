@@ -1,2 +1,10 @@
-logs/
+*.db
+*.log
+*.partial
+*.pid
+*.sqlite
+.DS_Store
+.cache/
+.env*
+__pycache__/
 node_modules/

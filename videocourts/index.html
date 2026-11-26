@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<title>VideoCourts™ — Full Enterprise Stack</title>
+<style>
+:root{--bg:#0f172a;--sidebar:#1e293b;--card:#1e293b;--card-hover:#334155;--accent:#00d4aa;--accent2:#635bff;--bail:#f59e0b;--txt:#f1f5f9;--txt2:#94a3b8;--txt3:#64748b;--border:#334155;--r:12px;--rs:8px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,sans-serif;line-height:1.45;font-size:14px}
+.dashboard{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+.sidebar{background:var(--sidebar);border-right:1px solid var(--border);padding:16px 0;position:fixed;height:100vh;overflow-y:auto;width:250px}
+.brand{padding:0 18px 16px;border-bottom:1px solid var(--border)}
+.brand h1{font-size:1.1rem;color:var(--accent)}
+.nav-item{padding:9px 18px;color:var(--txt2);cursor:pointer;font-size:0.84rem}
+.nav-item:hover,.nav-item.active{background:var(--card-hover);color:var(--accent)}
+.main{margin-left:250px;padding:20px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:14px}
+.card-header{padding:12px 16px;border-bottom:1px solid var(--border);font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.card-body{padding:14px 16px}
+.input,.select,.textarea{width:100%;padding:9px 11px;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);color:var(--txt);margin-bottom:8px;font-size:0.88rem}
+.btn{padding:8px 13px;border-radius:var(--rs);border:none;font-weight:600;cursor:pointer;font-size:0.84rem;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.btn-primary{background:var(--accent);color:#000}.btn-secondary{background:var(--accent2);color:#fff}.btn-bail{background:var(--bail);color:#000}.btn-outline{background:transparent;border:1px solid var(--border);color:var(--txt)}
+.out{margin-top:8px;font-size:0.8rem;color:var(--txt2);white-space:pre-wrap;background:var(--bg);padding:8px 10px;border-radius:var(--rs)}
+.toast{position:fixed;top:18px;right:18px;background:var(--card);border:1px solid var(--accent);padding:12px 14px;border-radius:var(--rs);z-index:999;display:none;max-width:340px}
+@media(max-width:1000px){.dashboard{grid-template-columns:1fr}.sidebar{display:none}.main{margin-left:0}.grid-2{grid-template-columns:1fr}}
+</style>
+
+<style id="paasResponsiveStyle">
+  @media (max-width: 640px) {
+    .grid-2 { grid-template-columns: 1fr !important; }
+    .card { margin: 8px 0 !important; }
+    .btn { min-height: 40px; width: 100%; }
+  }
+  #paasSmsDeviceSec .input { font-size: 16px; }
+</style>
+
+</head>
+<body>
+<div class="dashboard">
+  <aside class="sidebar">
+    <div class="brand">
+      <h1>VideoCourts™</h1>
+      <small style="color:var(--txt3)">Full Stack • Port 8000</small>
+    </div>
+    <div class="nav-item active" onclick="go('efileSec', this)">E-File (/api/efile)</div>
+    <div class="nav-item" onclick="go('esignSec', this)">E-Sign (/api/esign)</div>
+    <div class="nav-item" onclick="go('calSec', this)">Calendar (/api/calendar)</div>
+    <div class="nav-item" onclick="go('appearSec', this)">Virtual Appearance (/api/appearance/request)</div>
+    <div class="nav-item" onclick="go('pilotSec', this)">Pilot PDFs (/api/pilot/info &amp; /api/docs/pilot-pdf)</div>
+    <div class="nav-item" onclick="go('docsSec', this)">Court Docs (/api/docs/upload &amp; /api/docs/download)</div>
+    <div class="nav-item" onclick="go('courtsSec', this)">Courts (/api/courts/query) &amp; Sessions (/api/sessions)</div>
+    <div class="nav-item" onclick="go('toolsSec', this)">Bail (/api/bail/post), MockTrial (/api/mocktrial/run), AI (/api/ai/chat) &amp; Auth (/api/identity/check)</div>
+    <div class="nav-item" onclick="go('trSec', this)">TotalRecall (/api/totalrecall)</div>
+  </aside>
+
+  <main class="main">
+    <div class="grid-2">
+      <div class="card" id="efileSec">
+        <div class="card-header"><span>E-File Filing — /api/efile</span></div>
+        <div class="card-body">
+          <input class="input" id="efCase" placeholder="Case ID (e.g., NC-2026-001)">
+          <input class="input" id="efType" placeholder="Document Type (e.g., Motion, Brief)">
+          <input class="input" id="efParty" placeholder="Filing Party / Counsel">
+          <button class="btn btn-primary" onclick="submitEfile()">Submit E-File</button>
+          <div class="out" id="efOut">Ready for /api/efile</div>
+        </div>
+      </div>
+
+      <div class="card" id="esignSec">
+        <div class="card-header"><span>E-Sign Execution — /api/esign</span></div>
+        <div class="card-body">
+          <input class="input" id="esName" placeholder="Signer Full Legal Name">
+          <input class="input" id="esDoc" placeholder="Agreement / Order Title">
+          <label style="display:flex;gap:8px;align-items:center;margin-bottom:8px;font-size:0.82rem">
+            <input type="checkbox" id="esConsent" checked> I consent to electronic signature &amp; recording
+          </label>
+          <button class="btn btn-secondary" onclick="submitEsign()">Execute E-Sign</button>
+          <div class="out" id="esOut">Ready for /api/esign</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card" id="calSec">
+        <div class="card-header"><span>Hearings Calendar — /api/calendar</span><button class="btn btn-outline" onclick="loadCalendar()">Refresh</button></div>
+        <div class="card-body">
+          <input class="input" id="calCase" placeholder="Case ID">
+          <input class="input" id="calTitle" placeholder="Hearing / Event Title">
+          <div class="grid-2" style="gap:8px">
+            <input class="input" type="date" id="calDate">
+            <input class="input" type="time" id="calTime" value="10:00">
+          </div>
+          <button class="btn btn-primary" onclick="addCalendarEvent()">Add Calendar Event</button>
+          <div class="out" id="calOut">Loading /api/calendar...</div>
+        </div>
+      </div>
+
+      <div class="card" id="appearSec">
+        <div class="card-header"><span>Request Virtual Appearance Form — /api/appearance/request</span></div>
+        <div class="card-body">
+          <input class="input" id="vaCase" placeholder="Case Number (e.g., NC-2026-001)">
+          <input class="input" id="vaName" placeholder="Applicant Name">
+          <select class="select" id="vaRole">
+            <option value="counsel">Counsel</option>
+            <option value="defendant">Defendant</option>
+            <option value="plaintiff">Plaintiff</option>
+            <option value="witness">Witness</option>
+          </select>
+          <input class="input" type="date" id="vaDate">
+          <textarea class="textarea" rows="2" id="vaReason" placeholder="Reason for remote / virtual appearance"></textarea>
+          <button class="btn btn-primary" onclick="submitAppearanceRequest()">Submit Virtual Appearance Request</button>
+          <div class="out" id="vaOut">Ready for /api/appearance/request</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card" id="pilotSec">
+        <div class="card-header"><span>Pilot Program PDFs &amp; Info — /api/pilot/info</span>
+          <div style="display:flex;gap:6px">
+            <a class="btn btn-outline" href="/api/docs/pilot-pdf?index=0" download>Pilot PDF #0 (/api/docs/pilot-pdf)</a>
+            <button class="btn btn-outline" onclick="loadPilotInfo()">Load Pilot</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="out" id="pilotOut">Loading /api/pilot/info...</div>
+        </div>
+      </div>
+
+      <div class="card" id="docsSec">
+        <div class="card-header"><span>Court Docs Upload &amp; Download — /api/docs/upload &amp; /api/docs/download</span></div>
+        <div class="card-body">
+          <input class="input" type="file" id="docFileInput">
+          <input class="input" id="docIdDownload" placeholder="Document ID to Download (e.g., doc_179...)">
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-primary" onclick="uploadCourtDoc()">Upload Doc (/api/docs/upload)</button>
+            <a class="btn btn-outline" id="docDownloadLink" href="/api/docs/download?id=sample" download>Download PDF/Doc (/api/docs/download)</a>
+          </div>
+          <div class="out" id="docOut">Ready for /api/docs/upload and /api/docs/download</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="courtsSec">
+      <div class="card-header"><span>Courts Index (/api/courts/query) &amp; Session Lookup (/api/sessions)</span></div>
+      <div class="card-body">
+        <div class="grid-2" style="gap:8px">
+          <div style="display:flex;gap:6px">
+            <input class="input" id="courtQ" placeholder="Search courts/files ?q= (e.g., hearing, protocol)" style="margin-bottom:0">
+            <button class="btn btn-secondary" onclick="queryCourts()">Query</button>
+          </div>
+          <div style="display:flex;gap:6px">
+            <input class="input" id="sessQ" placeholder="Session / Case query (e.g., NC-2026-001)" style="margin-bottom:0">
+            <button class="btn btn-primary" onclick="querySession()">Session</button>
+          </div>
+        </div>
+        <div class="out" id="courtsOut">Ready</div>
+      </div>
+    </div>
+
+    <div class="grid-2" id="toolsSec">
+      <div class="card">
+        <div class="card-header"><span>Bail (/api/bail/post), Mock Trial (/api/mocktrial/run), AI (/api/ai/chat) &amp; Auth (/api/identity/check)</span></div>
+        <div class="card-body">
+          <div class="grid-2" style="gap:8px">
+            <input class="input" id="bailCase" placeholder="Bail Case ID">
+            <input class="input" type="number" id="bailAmt" placeholder="Bond Amount ($)">
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+            <button class="btn btn-bail" onclick="postBailApi()">Post Bail</button>
+            <button class="btn btn-primary" onclick="runMockTrialApi()">Mock Trial Turn</button>
+            <button class="btn btn-secondary" onclick="askAiApi()">AI Assistant</button>
+            <button class="btn btn-outline" onclick="checkIdentityApi()">Identity Check</button>
+          </div>
+          <input class="input" id="mtPrompt" placeholder="Mock trial argument / AI assistant message">
+          <div class="out" id="toolsOut">Ready</div>
+        </div>
+      </div>
+
+                <div class="card" id="videoRoomSec">
+        <div class="card-header"><span>Live Hearing Video Module (WebRTC)</span>
+          <button class="btn btn-outline" onclick="refreshVideoRoom()">Room Status</button>
+        </div>
+        <div class="card-body">
+          <div class="grid-2" style="gap:8px;margin-bottom:8px">
+            <input class="input" id="vcRoomId" placeholder="Hearing Room ID (e.g., NC-2026-001-ROOM)">
+            <input class="input" id="vcPeerRole" placeholder="Role (Judge, Counsel, Witness, Interpreter)">
+          </div>
+          <video id="vcLocalVideo" autoplay playsinline muted style="width:100%;max-height:220px;background:#0f172a;border-radius:8px;margin-bottom:8px"></video>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+            <button class="btn btn-primary" onclick="startHearingCamera()">Start Camera &amp; Join</button>
+            <button class="btn btn-outline" onclick="toggleHearingMic()">Mute / Unmute Mic</button>
+            <button class="btn btn-secondary" onclick="stopHearingCamera()">Leave &amp; Stop Camera</button>
+          </div>
+          <div class="out" id="videoRoomOut">Ready — local camera stream via getUserMedia; no raw video stored on server.</div>
+        </div>
+      </div>
+
+                              <div class="card" id="onboardingSec">
+        <div class="card-header"><span>Guided Court &amp; Participant Onboarding</span>
+          <button class="btn btn-outline" onclick="stepOnboardingPreview()">Step Summary</button>
+        </div>
+        <div class="card-body">
+          <div style="font-size:12px;margin-bottom:8px">
+            <strong>Step 1:</strong> Jurisdiction (defaults to <code>US-NC</code> pilot/fallback) &rarr;
+            <strong>Step 2:</strong> Docket &amp; Role &rarr;
+            <strong>Step 3:</strong> Court Custody &amp; Recording Check &rarr;
+            <strong>Step 4:</strong> Complete Onboarding
+          </div>
+          <div class="grid-2" style="gap:8px;margin-bottom:8px">
+            <input class="input" id="obJurisdiction" value="US-NC" placeholder="Jurisdiction (e.g., US-NC, US-CA, GB)">
+            <input class="input" id="obCourtDocket" placeholder="Court / Case Docket (e.g., NC-2026-001)">
+          </div>
+          <div class="grid-2" style="gap:8px;margin-bottom:8px">
+            <input class="input" id="obParticipantName" placeholder="Participant or Court Admin Name">
+            <select class="input" id="obRole">
+              <option value="Court Admin">Court Admin</option>
+              <option value="Judge">Judge</option>
+              <option value="Attorney / Counsel">Attorney / Counsel</option>
+              <option value="Self-Represented Party">Self-Represented Party</option>
+              <option value="Witness">Witness</option>
+              <option value="Interpreter">Interpreter</option>
+            </select>
+          </div>
+          <div class="grid-2" style="gap:8px;margin-bottom:8px">
+            <label style="font-size:12px;display:flex;align-items:center;gap:6px">
+              <input type="checkbox" id="obAckRules" checked> Acknowledge jurisdiction &amp; no-recording rule
+            </label>
+            <label style="font-size:12px;display:flex;align-items:center;gap:6px">
+              <input type="checkbox" id="obAckOffchain" checked> Off-chain court PII &amp; hash-only ledger
+            </label>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+            <button class="btn btn-primary" onclick="completeOnboardingFlow()">Complete Onboarding</button>
+            <button class="btn btn-outline" onclick="syncOnboardingJurisdiction()">Use Active Jurisdiction</button>
+          </div>
+          <div class="out" id="onboardingOut">Step 1-4 onboarding ready. Defaults to US-NC pilot template when custom jurisdiction rules are not set.</div>
+        </div>
+      </div>
+
+          <div class="card" id="jurisdictionRulesSec">
+         <div class="card-header"><span>Jurisdiction Rules (NC Pilot Fallback)</span>
+           <button class="btn btn-outline" onclick="loadJurisdictionRules()">Load Rules</button>
+         </div>
+         <div class="card-body">
+           <div class="grid-2" style="gap:8px;margin-bottom:8px">
+             <select class="input" id="jurPresetSelect" onchange="syncJurisdictionPreset()">
+               <option value="US-NC" selected>US-NC — North Carolina (Pilot Template)</option>
+               <option value="US-CA">US-CA — California (Fallback to US-NC until set)</option>
+               <option value="US-TX">US-TX — Texas (Fallback to US-NC until set)</option>
+               <option value="US-NY">US-NY — New York (Fallback to US-NC until set)</option>
+               <option value="GB">GB — United Kingdom (Fallback to US-NC until set)</option>
+               <option value="CA">CA — Canada (Fallback to US-NC until set)</option>
+               <option value="AU">AU — Australia (Fallback to US-NC until set)</option>
+             </select>
+             <input class="input" id="jurCodeInput" value="US-NC" placeholder="State or Country code (e.g., US-NC, US-FL, DE)">
+           </div>
+           <input class="input" id="jurNameInput" placeholder="Jurisdiction / Court display name (optional override)">
+           <div class="grid-2" style="gap:8px;margin-bottom:8px">
+             <label style="font-size:12px;display:flex;align-items:center;gap:6px">
+               <input type="checkbox" id="jurRecordingProhibited" checked> Recording prohibited by default
+             </label>
+             <label style="font-size:12px;display:flex;align-items:center;gap:6px">
+               <input type="checkbox" id="jurJudicialApproval" checked> Judicial / court approval required
+             </label>
+           </div>
+           <div class="grid-2" style="gap:8px;margin-bottom:8px">
+             <label style="font-size:12px;display:flex;align-items:center;gap:6px">
+               <input type="checkbox" id="jurPrivateCounsel" checked> Private counsel channel enabled
+             </label>
+             <label style="font-size:12px;display:flex;align-items:center;gap:6px">
+               <input type="checkbox" id="jurOffchainPii" checked disabled> PII off-chain (court-authoritative)
+             </label>
+           </div>
+           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+             <button class="btn btn-primary" onclick="loadJurisdictionRules()">Inspect Active Rules</button>
+             <button class="btn btn-secondary" onclick="saveJurisdictionRules()">Save Court Override</button>
+           </div>
+           <div class="out" id="jurisdictionRulesOut">Default pilot template: US-NC (used automatically when a state or country has no custom rules saved yet).</div>
+         </div>
+       </div>
+
+                    <div class="card" id="docketTrackerSec">
+        <div class="card-header"><span>Docket Tracker (CourtListener + Cache)</span>
+          <button class="btn btn-outline" onclick="trackDockets()">Track Docket</button>
+        </div>
+        <div class="card-body">
+          <div class="grid-2" style="gap:8px;margin-bottom:8px">
+            <input class="input" id="dtQueryInput" value="NC-2026-001" placeholder="Docket number or search query (e.g., NC-2026-001)">
+            <input class="input" id="dtJurisdictionInput" value="US-NC" placeholder="Jurisdiction (defaults to US-NC fallback)">
+          </div>
+          <button class="btn btn-primary" onclick="trackDockets()">Query /api/dockets/track</button>
+          <div class="out" id="docketTrackerOut">Queries GET /api/dockets/track and shows live CourtListener v4 results, cached entries, or local US-NC fallback data.</div>
+        </div>
+      </div>
+
+                    <div class="card" id="licensingBillingSec">
+        <div class="card-header"><span>Court Licensing &amp; Billing</span>
+          <button class="btn btn-outline" onclick="loadCourtLicenses()">List Licenses</button>
+        </div>
+        <div class="card-body">
+          <div class="grid-2" style="gap:8px;margin-bottom:8px">
+            <input class="input" id="licJurisdiction" value="US-NC" placeholder="Jurisdiction (defaults to US-NC)">
+            <input class="input" id="licCourtName" placeholder="Court / Organization Name">
+          </div>
+          <div class="grid-2" style="gap:8px;margin-bottom:8px">
+            <select class="input" id="licTier">
+              <option value="pilot_nc_template">Pilot (NC Template Fallback)</option>
+              <option value="county_standard">County / District Standard</option>
+              <option value="state_enterprise">Statewide Court Enterprise</option>
+              <option value="global_custom">International / Custom</option>
+            </select>
+            <input class="input" id="licSeats" type="number" value="25" placeholder="Seat Limit (e.g., 25)">
+          </div>
+          <div class="grid-2" style="gap:8px;margin-bottom:8px">
+            <input class="input" id="billAccount" placeholder="Billing Account Name">
+            <input class="input" id="billAmountCents" type="number" value="49000" placeholder="Amount in cents (e.g., 49000 = $490.00)">
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+            <button class="btn btn-primary" onclick="saveCourtLicense()">Issue / Save License</button>
+            <button class="btn btn-secondary" onclick="createBillingInvoice()">Record Invoice</button>
+            <button class="btn btn-outline" onclick="loadBillingInvoices()">View Billing</button>
+          </div>
+          <div class="out" id="licensingBillingOut">Manage court licenses (defaulting to US-NC template fallback when unconfigured), CRM ties, and billing invoices.</div>
+        </div>
+      </div>
+
+          <div class="card" id="trSec">
+        <div class="card-header"><span>TotalRecall Immutable Audit Log — /api/totalrecall</span><button class="btn btn-outline" onclick="loadTotalRecall()">Refresh Log</button></div>
+        <div class="card-body">
+          <div class="out" id="trOut">Loading /api/totalrecall...</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"><strong id="tTitle"></strong><div id="tMsg"></div></div>
+
+<script>
+const API_BASE = window.location.origin.startsWith("http") ? window.location.origin : "http://127.0.0.1:8000";
+
+function notify(title, msg) {
+  const el = document.getElementById("toast");
+  document.getElementById("tTitle").textContent = title;
+  document.getElementById("tMsg").textContent = msg;
+  el.style.display = "block";
+  setTimeout(() => { el.style.display = "none"; }, 2800);
+}
+
+function go(id, navEl) {
+  document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+  if (navEl) navEl.classList.add("active");
+  const target = document.getElementById(id);
+  if (target) target.scrollIntoView({ behavior: "smooth" });
+}
+
+async function postJson(path, body) {
+  const res = await apiFetchWithToast(`${API_BASE}${path}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+async function submitEfile() {
+  try {
+    const d = await postJson("/api/efile", {
+      case_id: document.getElementById("efCase").value || "NC-2026-001",
+      doc_type: document.getElementById("efType").value || "Motion",
+      party: document.getElementById("efParty").value || "Counsel"
+    });
+    document.getElementById("efOut").textContent = JSON.stringify(d.filing, null, 2);
+    notify("E-File", `Filed ${d.filing.id}`);
+    loadTotalRecall();
+  } catch (e) { notify("E-File Error", e.message); }
+}
+
+async function submitEsign() {
+  try {
+    const d = await postJson("/api/esign", {
+      signer_name: document.getElementById("esName").value || "Cygel White",
+      document_title: document.getElementById("esDoc").value || "Virtual Appearance Consent",
+      consent_checked: document.getElementById("esConsent").checked
+    });
+    document.getElementById("esOut").textContent = JSON.stringify(d.signature, null, 2);
+    notify("E-Sign", `Signed ${d.signature.id}`);
+    loadTotalRecall();
+  } catch (e) { notify("E-Sign Error", e.message); }
+}
+
+async function addCalendarEvent() {
+  try {
+    await postJson("/api/calendar", {
+      case_id: document.getElementById("calCase").value || "NC-2026-001",
+      title: document.getElementById("calTitle").value || "Virtual Hearing",
+      date: document.getElementById("calDate").value || "2026-11-26",
+      time: document.getElementById("calTime").value || "10:00",
+      mode: "VideoCourts"
+    });
+    await loadCalendar();
+    notify("Calendar", "Event scheduled");
+  } catch (e) { notify("Calendar Error", e.message); }
+}
+
+async function loadCalendar() {
+  try {
+    const res = await apiFetchWithToast(`/api/calendar`);
+    const d = await res.json();
+    document.getElementById("calOut").textContent = JSON.stringify(d.events || [], null, 2);
+  } catch (e) { document.getElementById("calOut").textContent = e.message; }
+}
+
+async function submitAppearanceRequest() {
+  try {
+    const d = await postJson("/api/appearance/request", {
+      case_id: document.getElementById("vaCase").value || "NC-2026-001",
+      requester_name: document.getElementById("vaName").value || "Cygel White",
+      role: document.getElementById("vaRole").value,
+      requested_date: document.getElementById("vaDate").value || "2026-11-26",
+      reason: document.getElementById("vaReason").value || "Remote appearance"
+    });
+    document.getElementById("vaOut").textContent = JSON.stringify(d.request, null, 2);
+    notify("Virtual Appearance", `Request ${d.request.id} submitted`);
+    loadTotalRecall();
+  } catch (e) { notify("Appearance Error", e.message); }
+}
+
+async function loadPilotInfo() {
+  try {
+    const res = await apiFetchWithToast(`/api/pilot/info`);
+    const d = await res.json();
+    document.getElementById("pilotOut").textContent = JSON.stringify(d, null, 2);
+  } catch (e) { document.getElementById("pilotOut").textContent = e.message; }
+}
+
+async function uploadCourtDoc() {
+  const file = document.getElementById("docFileInput").files[0];
+  if (!file) { notify("Upload", "Select a file first"); return; }
+  const buf = await file.arrayBuffer();
+  const bytes = new Uint8Array(buf);
+  let bin = "";
+  for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+  try {
+    const d = await postJson("/api/docs/upload", { filename: file.name, content_b64: btoa(bin) });
+    document.getElementById("docOut").textContent = JSON.stringify(d.document, null, 2);
+    document.getElementById("docIdDownload").value = d.document.id;
+    document.getElementById("docDownloadLink").href = `${API_BASE}/api/docs/download?id=${encodeURIComponent(d.document.id)}`;
+    notify("Uploaded", d.document.filename);
+  } catch (e) { notify("Upload Error", e.message); }
+}
+
+async function queryCourts() {
+  const q = encodeURIComponent(document.getElementById("courtQ").value || "");
+  const res = await apiFetchWithToast(`/api/courts/query?q=${q}`);
+  const d = await res.json();
+  document.getElementById("courtsOut").textContent = JSON.stringify({ q: d.q, count: d.count, sample: (d.courts || []).slice(0, 10) }, null, 2);
+}
+
+async function querySession() {
+  const q = encodeURIComponent(document.getElementById("sessQ").value || "NC-2026-001");
+  const res = await apiFetchWithToast(`/api/sessions?query=${q}`);
+  const d = await res.json();
+  document.getElementById("courtsOut").textContent = JSON.stringify(d, null, 2);
+}
+
+async function postBailApi() {
+  const d = await postJson("/api/bail/post", {
+    case_id: document.getElementById("bailCase").value || "NC-2026-001",
+    amount: Number(document.getElementById("bailAmt").value || 5000),
+    bond_type: "Appearance Bond"
+  });
+  document.getElementById("toolsOut").textContent = JSON.stringify(d, null, 2);
+}
+
+async function runMockTrialApi() {
+  const d = await postJson("/api/mocktrial/run", {
+    case_id: "MT-2026-01",
+    role: "counsel",
+    prompt: document.getElementById("mtPrompt").value || "Opening statement"
+  });
+  document.getElementById("toolsOut").textContent = JSON.stringify(d, null, 2);
+}
+
+async function askAiApi() {
+  const d = await postJson("/api/ai/chat", {
+    case_id: "NC-2026-001",
+    message: document.getElementById("mtPrompt").value || "Status overview"
+  });
+  document.getElementById("toolsOut").textContent = JSON.stringify(d, null, 2);
+}
+
+async function checkIdentityApi() {
+  const d = await postJson("/api/identity/check", {
+    case_id: "NC-2026-001",
+    full_name: document.getElementById("esName").value || "Cygel White",
+    role: "counsel"
+  });
+  document.getElementById("toolsOut").textContent = JSON.stringify(d, null, 2);
+}
+
+async function loadTotalRecall() {
+  try {
+    const res = await apiFetchWithToast(`/api/totalrecall`);
+    const d = await res.json();
+    document.getElementById("trOut").textContent = JSON.stringify(d.records || [], null, 2);
+  } catch (e) { document.getElementById("trOut").textContent = e.message; }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadCalendar();
+  loadPilotInfo();
+  loadTotalRecall();
+});
+
+let vcMediaStream = null;
+let vcMicMuted = false;
+
+async function startHearingCamera() {
+  const roomId = document.getElementById("vcRoomId")?.value || document.getElementById("efCase")?.value || "NC-2026-001-ROOM";
+  const role = document.getElementById("vcPeerRole")?.value || "Participant";
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    document.getElementById("videoRoomOut").textContent = JSON.stringify({
+      ok: false,
+      error: "getUserMedia unavailable in this browser or context (requires secure origin and camera permission)."
+    }, null, 2);
+    return;
+  }
+  try {
+    vcMediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    const vid = document.getElementById("vcLocalVideo");
+    if (vid) vid.srcObject = vcMediaStream;
+    vcMicMuted = false;
+    const sig = await postJson("/api/video/signal", { room_id: roomId, role, signal_type: "join_camera_ready" });
+    document.getElementById("videoRoomOut").textContent = JSON.stringify(sig, null, 2);
+  } catch (err) {
+    document.getElementById("videoRoomOut").textContent = JSON.stringify({
+      ok: false,
+      media_error: err.name || "MediaError",
+      message: err.message || String(err)
+    }, null, 2);
+  }
+}
+
+function toggleHearingMic() {
+  if (!vcMediaStream) return;
+  vcMicMuted = !vcMicMuted;
+  vcMediaStream.getAudioTracks().forEach(t => { t.enabled = !vcMicMuted; });
+  document.getElementById("videoRoomOut").textContent = JSON.stringify({ ok: true, mic_muted: vcMicMuted }, null, 2);
+}
+
+async function stopHearingCamera() {
+  const roomId = document.getElementById("vcRoomId")?.value || "NC-2026-001-ROOM";
+  const role = document.getElementById("vcPeerRole")?.value || "Participant";
+  if (vcMediaStream) {
+    vcMediaStream.getTracks().forEach(t => t.stop());
+    vcMediaStream = null;
+  }
+  const vid = document.getElementById("vcLocalVideo");
+  if (vid) vid.srcObject = null;
+  const sig = await postJson("/api/video/signal", { room_id: roomId, role, signal_type: "leave_camera_stopped" });
+  document.getElementById("videoRoomOut").textContent = JSON.stringify(sig, null, 2);
+}
+
+async function refreshVideoRoom() {
+  const res = await apiFetchWithToast(`/api/video/room`);
+  document.getElementById("videoRoomOut").textContent = JSON.stringify(await res.json(), null, 2);
+}
+
+    
+ function getActiveJurisdictionCode() {
+   const raw = document.getElementById("jurCodeInput")?.value || document.getElementById("jurPresetSelect")?.value || "US-NC";
+   return raw.trim().toUpperCase() || "US-NC";
+ }
+
+ function syncJurisdictionPreset() {
+   const sel = document.getElementById("jurPresetSelect");
+   const inp = document.getElementById("jurCodeInput");
+   if (sel && inp) {
+     inp.value = sel.value;
+   }
+   loadJurisdictionRules();
+ }
+
+ async function loadJurisdictionRules() {
+   const code = getActiveJurisdictionCode();
+   const inp = document.getElementById("jurCodeInput");
+   if (inp) inp.value = code;
+   const res = await apiFetchWithToast(`/api/jurisdiction/rules?code=${encodeURIComponent(code)}`);
+   const data = await res.json();
+   const rules = (data && data.profile && data.profile.rules) || {};
+   if (document.getElementById("jurRecordingProhibited")) {
+     document.getElementById("jurRecordingProhibited").checked = rules.recording_prohibited !== false;
+   }
+   if (document.getElementById("jurJudicialApproval")) {
+     document.getElementById("jurJudicialApproval").checked = rules.requires_judicial_or_court_approval !== false;
+   }
+   if (document.getElementById("jurPrivateCounsel")) {
+     document.getElementById("jurPrivateCounsel").checked = rules.private_counsel_consultation_enabled !== false;
+   }
+   document.getElementById("jurisdictionRulesOut").textContent = JSON.stringify(data, null, 2);
+ }
+
+ async function saveJurisdictionRules() {
+   const code = getActiveJurisdictionCode();
+   const customName = document.getElementById("jurNameInput")?.value?.trim() || `${code} Court Rule Override`;
+   const payload = {
+     jurisdiction_code: code,
+     jurisdiction_name: customName,
+     rules: {
+       recording_prohibited: Boolean(document.getElementById("jurRecordingProhibited")?.checked),
+       requires_judicial_or_court_approval: Boolean(document.getElementById("jurJudicialApproval")?.checked),
+       private_counsel_consultation_enabled: Boolean(document.getElementById("jurPrivateCounsel")?.checked),
+       remote_witness_oath_verification: true,
+       pii_offchain_court_authoritative: true,
+       blockchain_hash_only_anchoring: true
+     }
+   };
+   const d = await postJson("/api/jurisdiction/rules", payload);
+   document.getElementById("jurisdictionRulesOut").textContent = JSON.stringify(d, null, 2);
+ }
+
+    
+function syncOnboardingJurisdiction() {
+  const code = (typeof getActiveJurisdictionCode === "function"
+    ? getActiveJurisdictionCode()
+    : (document.getElementById("obJurisdiction")?.value || "US-NC")).trim().toUpperCase();
+  const el = document.getElementById("obJurisdiction");
+  if (el) el.value = code;
+  return code;
+}
+
+function stepOnboardingPreview() {
+  const code = syncOnboardingJurisdiction();
+  const docket = document.getElementById("obCourtDocket")?.value?.trim() || "UNASSIGNED-DOCKET";
+  const role = document.getElementById("obRole")?.value || "Participant";
+  const ackRules = Boolean(document.getElementById("obAckRules")?.checked);
+  const ackOffchain = Boolean(document.getElementById("obAckOffchain")?.checked);
+  document.getElementById("onboardingOut").textContent = JSON.stringify({
+    steps: {
+      step_1_jurisdiction: code,
+      step_2_docket_and_role: { docket, role },
+      step_3_compliance_checks: { ackRules, ackOffchain },
+      step_4_ready_to_submit: ackRules && ackOffchain
+    }
+  }, null, 2);
+}
+
+async function completeOnboardingFlow() {
+  const code = syncOnboardingJurisdiction();
+  const docket = document.getElementById("obCourtDocket")?.value?.trim() || "NC-2026-001";
+  const participantName = document.getElementById("obParticipantName")?.value?.trim() || "Court Participant";
+  const role = document.getElementById("obRole")?.value || "Participant";
+  const ackRules = Boolean(document.getElementById("obAckRules")?.checked);
+  const ackOffchain = Boolean(document.getElementById("obAckOffchain")?.checked);
+
+  if (!ackRules || !ackOffchain) {
+    document.getElementById("onboardingOut").textContent = JSON.stringify({
+      ok: false,
+      error: "Both jurisdiction rule acknowledgment and off-chain PII / hash-only ledger check are required."
+    }, null, 2);
+    return;
+  }
+
+  let jurProfile = null;
+  try {
+    const jRes = await apiFetchWithToast(`/api/jurisdiction/rules?code=${encodeURIComponent(code)}`);
+    jurProfile = await jRes.json();
+  } catch (_e) {}
+
+  const payload = {
+    jurisdiction_code: code,
+    template_fallback: jurProfile?.profile?.template_fallback ?? (code !== "US-NC"),
+    docket_id: docket,
+    participant_name: participantName,
+    role,
+    acknowledged_rules: ackRules,
+    acknowledged_offchain_pii: ackOffchain,
+    completed_at: new Date().toISOString()
+  };
+
+  const res = await postJson("/api/onboarding/complete", payload);
+  if (document.getElementById("efCase") && !document.getElementById("efCase").value) {
+    document.getElementById("efCase").value = docket;
+  }
+  if (document.getElementById("vcRoomId") && !document.getElementById("vcRoomId").value) {
+    document.getElementById("vcRoomId").value = `${docket}-ROOM`;
+  }
+  if (document.getElementById("vcPeerRole")) {
+    document.getElementById("vcPeerRole").value = role;
+  }
+  document.getElementById("onboardingOut").textContent = JSON.stringify({
+    onboarding_response: res,
+    jurisdiction_context: jurProfile?.profile || { jurisdiction_code: code }
+  }, null, 2);
+}
+
+    
+async function trackDockets() {
+  const q = (document.getElementById("dtQueryInput")?.value || "NC-2026-001").trim() || "NC-2026-001";
+  const jur = (document.getElementById("dtJurisdictionInput")?.value ||
+    (typeof getActiveJurisdictionCode === "function" ? getActiveJurisdictionCode() : "US-NC")).trim().toUpperCase() || "US-NC";
+  const out = document.getElementById("docketTrackerOut");
+  try {
+    const url = `${API_BASE}/api/dockets/track?q=${encodeURIComponent(q)}&jurisdiction=${encodeURIComponent(jur)}`;
+    const res = await apiFetchWithToast(url);
+    const data = await res.json();
+    if (out) out.textContent = JSON.stringify(data, null, 2);
+  } catch (err) {
+    if (out) out.textContent = JSON.stringify({ ok: false, error: String(err) }, null, 2);
+  }
+}
+
+    
+async function saveCourtLicense() {
+  const jur = (document.getElementById("licJurisdiction")?.value || "US-NC").trim().toUpperCase();
+  const payload = {
+    jurisdiction_code: jur,
+    court_name: document.getElementById("licCourtName")?.value?.trim() || `${jur} Court Pilot`,
+    tier: document.getElementById("licTier")?.value || "pilot_nc_template",
+    seat_limit: Number(document.getElementById("licSeats")?.value || 25),
+    status: "active"
+  };
+  const res = await postJson("/api/licenses", payload);
+  document.getElementById("licensingBillingOut").textContent = JSON.stringify(res, null, 2);
+}
+
+async function loadCourtLicenses() {
+  const r = await apiFetchWithToast(`/api/licenses`);
+  const d = await r.json();
+  document.getElementById("licensingBillingOut").textContent = JSON.stringify(d, null, 2);
+}
+
+async function createBillingInvoice() {
+  const jur = (document.getElementById("licJurisdiction")?.value || "US-NC").trim().toUpperCase();
+  const payload = {
+    jurisdiction_code: jur,
+    account_name: document.getElementById("billAccount")?.value?.trim() || document.getElementById("licCourtName")?.value?.trim() || `${jur} Court Account`,
+    plan_label: document.getElementById("licTier")?.value || "pilot_nc_template",
+    amount_cents: Number(document.getElementById("billAmountCents")?.value || 0),
+    currency: "USD",
+    status: "pending"
+  };
+  const res = await postJson("/api/billing", payload);
+  document.getElementById("licensingBillingOut").textContent = JSON.stringify(res, null, 2);
+}
+
+async function loadBillingInvoices() {
+  const r = await apiFetchWithToast(`/api/billing`);
+  const d = await r.json();
+  document.getElementById("licensingBillingOut").textContent = JSON.stringify(d, null, 2);
+}
+
+    
+function toggleFooterLicensingTab() {
+  const panel = document.getElementById("footerLicensingPanel");
+  if (!panel) return;
+  panel.style.display = (panel.style.display === "none") ? "block" : "none";
+}
+
+    
+function showToastFallback(msg, level = "info") {
+  if (typeof notify === "function") {
+    try {
+      notify(msg);
+      return;
+    } catch (_e) {}
+  }
+  let box = document.getElementById("vcToastFallback");
+  if (!box) {
+    box = document.createElement("div");
+    box.id = "vcToastFallback";
+    box.style.cssText = "position:fixed;bottom:14px;right:14px;z-index:9999;max-width:340px;padding:10px 14px;border-radius:8px;background:#111827;color:#f9fafb;border:1px solid #374151;font-size:12px;box-shadow:0 6px 20px rgba(0,0,0,0.35);transition:opacity 0.2s";
+    document.body.appendChild(box);
+  }
+  box.dataset.level = level;
+  box.textContent = msg;
+  box.style.display = "block";
+  box.style.opacity = "1";
+  clearTimeout(window.__vcToastTimer);
+  window.__vcToastTimer = setTimeout(() => {
+    if (box) box.style.opacity = "0";
+  }, 3500);
+}
+
+async function apiFetchWithToast(endpoint, options = {}) {
+  const base = (typeof API_BASE === "string" && API_BASE) ? API_BASE : "";
+  const url = `${base}${endpoint}`;
+  try {
+    const resp = await fetch(url, options);
+    if (!resp.ok) {
+      const errMsg = `${endpoint} returned ${resp.status} — toast fallback active until connected`;
+      showToastFallback(errMsg, "warn");
+      return { ok: false, disconnected: true, status: resp.status, endpoint };
+    }
+    return await resp.json();
+  } catch (_err) {
+    const offMsg = `${endpoint} unreachable — toast notice shown until connected`;
+    showToastFallback(offMsg, "info");
+    return { ok: false, disconnected: true, endpoint };
+  }
+}
+
+    </script>
+
+                                              <div class="card" id="paasSmsDeviceSec">
+        <div class="card-header"><span>Web &amp; Mobile PaaS · SMS Text Consent &amp; Mobile Device Binding</span>
+          <button class="btn btn-outline" onclick="loadPaasProfile()">PaaS Profile</button>
+        </div>
+        <div class="card-body">
+          <div class="grid-2" style="gap:8px;margin-bottom:8px">
+            <input class="input" id="paasPhoneInput" type="tel" placeholder="Mobile phone for SMS (e.g., +1-336-555-0199)">
+            <input class="input" id="paasDeviceRefInput" placeholder="Mobile device ID / app device ref (browsers block raw IMEI)">
+          </div>
+          <div style="margin-bottom:8px;font-size:12px">
+            <label><input type="checkbox" id="chkSmsConsent"> I agree to receive SMS / text messages on my mobile phone for verification &amp; court alerts</label>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+            <button class="btn btn-primary" onclick="savePaasSmsAndDevice()">Save SMS Consent &amp; Mobile Device</button>
+          </div>
+          <div class="out" id="paasSmsDeviceOut">Web &amp; mobile PaaS ready. Browsers cannot read hardware IMEI directly; bind a mobile device ID and agree to SMS to route mobile biometric prompts.</div>
+        </div>
+      </div>
+
+          <div class="card" id="mobileBiometricBridgeSec">
+        <div class="card-header"><span>Web &amp; Mobile Biometric Delegation (Zero Stored Biometrics) &amp; Runtime Boot</span>
+          <button class="btn btn-outline" onclick="routeMobileBiometricChallenge()">Route to Mobile Biometrics</button>
+        </div>
+        <div class="card-body">
+          <div class="grid-2" style="gap:8px;margin-bottom:8px">
+            <select class="input" id="bioSurfaceSelect">
+              <option value="web_to_mobile">Web Browser -> Mobile Device Enclave</option>
+              <option value="mobile_native">Mobile Device -> Local Face/Fingerprint</option>
+            </select>
+            <select class="input" id="bioModalitySelect">
+              <option value="face_or_fingerprint">Face or Fingerprint (Device Stored)</option>
+              <option value="face">Face Biometric (Device Stored)</option>
+              <option value="fingerprint">Fingerprint Biometric (Device Stored)</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+            <button class="btn btn-primary" onclick="confirmMobileBiometricMatch(false)">Confirm Mobile Biometric Match</button>
+            <button class="btn btn-secondary" onclick="confirmMobileBiometricMatch(true)">Confirm Match &amp; Start Runtime</button>
+          </div>
+          <div class="out" id="mobileBiometricOut">Biometrics stay on the user mobile device (never stored on server). Confirmed mobile match confirms login and starts platform runtime.</div>
+        </div>
+      </div>
+
+                    <div class="card" id="idmeLiveCheckpointSec">
+        <div class="card-header"><span>ID.me / Vendor Live-Agent Checkpoint (Required Before Proceeding)</span>
+          <button class="btn btn-outline" onclick="submitIdmeLiveCheckpoint()">Verify Live Checkpoint</button>
+        </div>
+        <div class="card-body">
+          <div class="grid-2" style="gap:8px;margin-bottom:8px">
+            <input class="input" id="idmeVerificationIdInput" placeholder="ID.me verification_id (optional if checking status)">
+            <div style="display:flex;gap:12px;align-items:center;font-size:12px">
+              <label><input type="checkbox" id="chkIdmeOnboarded"> idme_onboarded = true</label>
+              <label><input type="checkbox" id="chkLiveAgentProcessed"> live_agent_processed = true</label>
+            </div>
+          </div>
+          <div class="out" id="idmeLiveCheckpointOut">Blocked until ID.me verification is onboarded (true) and processed by a live agent (true).</div>
+        </div>
+      </div>
+
+          <div class="card" id="userOnboardingGateSec">
+        <div class="card-header"><span>ID.me 4-Digit PIN Sync, Biometrics, Rules, Fees ($1.99 / $19.99) &amp; Court Approval</span>
+          <button class="btn btn-outline" onclick="sendIdmePin()">ID.me + 4-Digit PIN</button>
+        </div>
+        <div class="card-body">
+          <div class="grid-2" style="gap:8px;margin-bottom:8px">
+            <input class="input" id="gatePinInput" placeholder="4-digit PIN (email sync &amp; biometric fallback)">
+            <select class="input" id="gateFeeSelect">
+              <option value="request_form_199">Virtual Courts Request Form ($1.99)</option>
+              <option value="appearance_fee_1999">Virtual Court Appearance Fee ($19.99)</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px;font-size:12px">
+            <label><input type="checkbox" id="chkBioOnboard"> Biometric Onboarding &amp; Consent</label>
+            <label><input type="checkbox" id="chkVideoRules"> Platform Video Instructions Watched</label>
+            <label><input type="checkbox" id="chkCourtRules"> Virtual Court Rules &amp; Digital Agreements Accepted</label>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+            <button class="btn btn-primary" onclick="saveUserOnboardingGate()">Save Onboarding &amp; Fee</button>
+            <button class="btn btn-secondary" onclick="approveUserForCourt()">Approve User (Court Admin)</button>
+          </div>
+          <div class="out" id="userOnboardingGateOut">Scheduling requires ID.me + 4-digit PIN sync (biometric fallback), biometric consent, onboarding video &amp; court rules acceptance, $1.99 or $19.99 fee, and court approval.</div>
+        </div>
+      </div>
+
+          <div class="card" id="serverApprovalBotSec">
+        <div class="card-header"><span>Server-Side Approval Bot &amp; Court-Allotted Slots</span>
+          <button class="btn btn-outline" onclick="refreshAvailableSlots()">Refresh Available Slots</button>
+        </div>
+        <div class="card-body">
+          <div class="grid-2" style="gap:8px;margin-bottom:8px">
+            <select class="input" id="userAvailableSlotSelect">
+              <option value="">Select court-allotted available slot...</option>
+            </select>
+            <input class="input" id="schedUserRef" placeholder="User / Participant email or CRM ref for admin sync">
+          </div>
+          <div class="grid-2" style="gap:8px;margin-bottom:8px">
+            <input class="input" id="allotSlotWindow" placeholder="Admin new slot window (e.g., 11:00-11:20 EST)">
+            <input class="input" id="allotSlotRoom" placeholder="Admin virtual room (e.g., Virtual-Room-A)">
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+            <button class="btn btn-primary" onclick="submitUserSlotRequest()">Request Selected Available Slot (User)</button>
+            <button class="btn btn-secondary" onclick="allotCourtVirtualSlot()">Allot Slot (Admin)</button>
+            <button class="btn btn-outline" onclick="runAdminApprovalSyncBot()">Run Server Approval &amp; User Sync Bot</button>
+          </div>
+          <div class="out" id="serverApprovalBotOut">User-side scheduling is restricted to available court-allotted slots; server-side bot handles approval and user sync.</div>
+        </div>
+      </div>
+
+          <footer id="vcFooterLicensing" style="margin-top:16px;padding:12px;border-top:1px solid rgba(148,163,184,0.3);font-size:12px">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <strong>VideoCourts Platform</strong>
+          <button class="btn btn-outline" id="footerLicensingTab" onclick="toggleFooterLicensingTab()">Licensing Pricing &amp; Terms</button>
+          <span>Test licenses stay <code>pending_activation</code> until a court or legal entity authorizes them; unconfigured jurisdictions default to <code>US-NC</code>.</span>
+        </div>
+        <div id="footerLicensingPanel" class="out" style="display:block;margin-top:8px;white-space:pre-line">LICENSING PRICING &amp; TERMS (CONFIGURABLE)
+- Pilot (US-NC Template): $0-$490/mo | Up to 25 seats | Starts pending_activation until bound to a court or legal entity; uses US-NC rule fallback for unconfigured states/countries.
+- County / District Standard: $1,500-$4,500/mo | Up to 100 seats | Requires authorized court/entity binding + custom jurisdiction overrides.
+- Statewide / Enterprise: $6,000-$18,000+/mo | Custom seats &amp; SLA | Custom court rules, off-chain PII custody, SHA-256 non-PII ledger anchoring.
+- Core Terms: (1) Test licenses are not active until authorized for a court/legal entity; (2) Court-authoritative off-chain PII; (3) Confirmation + BCC logged on virtual court requests; (4) Opt-in required for SMS reminders.
+
+ANNUAL INTERNAL OPERATING COST ANALYSIS ([ESTIMATE] — ADJUST TO YOUR STACK)
+- Lean / Local-First Self-Hosted: ~$550-$3,650/yr (local/Termux/Linux host, CourtListener free tier + local cache, low comms/backup/legal baseline).
+- Growing Multi-Court Cloud + Comms: ~$5,700-$26,600+/yr (TURN/cloud compute, reminder SMS/email volume, optional commercial/PACER feeds, legal/insurance).</div>
+      </footer>
+
+</body>
+</html>

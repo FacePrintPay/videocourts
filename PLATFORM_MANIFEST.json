@@ -1,0 +1,192 @@
+{
+  "platform": "VideoCourts Enterprise",
+  "version": "2026.11-build-entry",
+  "generated_at": "2026-11-25 20:03:29 EST",
+  "runtime": {
+    "server": "Python ThreadingHTTPServer",
+    "bind": "127.0.0.1:8000",
+    "entrypoint": "build_entry.py -> api/server.py",
+    "frontend": "videocourts/index.html"
+  },
+  "compliance": {
+    "paas_saas_controls": {
+      "transport_encryption": "TLS 1.2+ required in transit (HTTPS/WSS reverse proxy in production)",
+      "storage_encryption": "Encryption at rest required for sensitive/regulated data stores",
+      "identity_and_access": "MFA/SSO support, least-privilege API keys, quarterly privilege review, no raw biometric templates",
+      "audit_and_forensics": "Tamper-evident SHA-256 hash chain + exportable security/access logs",
+      "data_lifecycle": "Court-authoritative off-chain custody for PII/sealed records; defined retention and purge/export controls"
+    },
+    "state_and_judicial_alignment": {
+      "court_custody_and_sealing": "Courts retain authoritative case/PII records; redaction and sealed-filing rules respected",
+      "interoperability_standards": "Align schemas and exchanges with court/justice standards (NIEM, OASIS ECF, state e-filing rules)"
+    },
+    "technology_vendor_requirements": {
+      "independent_assurance": "Current SOC 2 Type II / ISO 27001 / annual pen-test attestation tracking for sub-vendors",
+      "no_unauthorized_ai_training": "Strict prohibition on training external/commercial models on confidential legal or user data",
+      "incident_response_sla": "Rapid breach notification commitment (24-72h target escalation) and subprocessor flow-down terms",
+      "data_residency_and_dsp": "Approved jurisdictional residency and screening for covered/restricted data transactions (DOJ DSP / CISA security rules)"
+    }
+  },
+  "artifacts": {
+    "server_py": {
+      "path": "api/server.py",
+      "sha256": "3dbd836066267a5284e0db4d9b17dc10287c7f22ecd0261d8396387c39ad4664",
+      "bytes": 91049
+    },
+    "index_html": {
+      "path": "videocourts/index.html",
+      "sha256": "7c456c5aaba0ac1901b5cfb6e4dfce38f0210941773abf528035e3022fbd96b5",
+      "bytes": 49494
+    },
+    "compiled_build_json": {
+      "path": "data/full_compiled_build.json",
+      "sha256": "ba53ed2180158444235ed46f1e2f15440c38381debb9a5324820b66ae1fde787",
+      "compiled_courts": 152734
+    }
+  },
+  "endpoints": {
+    "GET": [
+      "/api/ai/functions",
+      "/api/billing",
+      "/api/blockchain/ledger",
+      "/api/build/manifest",
+      "/api/calendar",
+      "/api/courts/directory",
+      "/api/courts/max-calendar",
+      "/api/crm/contacts",
+      "/api/dockets/track",
+      "/api/docs/download",
+      "/api/docs/pilot-pdf",
+      "/api/efile/status",
+      "/api/health",
+      "/api/jurisdiction/rules",
+      "/api/jurisdiction/sources",
+      "/api/lawyers",
+      "/api/legal/policies",
+      "/api/legyc/law",
+      "/api/licenses",
+      "/api/licenses/authorize",
+      "/api/licensing/config",
+      "/api/paas/profile",
+      "/api/pilot/info",
+      "/api/schedule/slots",
+      "/api/security/verify",
+      "/api/sessions",
+      "/api/totalrecall",
+      "/api/tyler/odyssey/status",
+      "/videocourts"
+    ],
+    "POST": [
+      "/api/admin/approval-bot/sync",
+      "/api/admin/slots/allot",
+      "/api/admin/user/approve",
+      "/api/ai/assistant",
+      "/api/ai/chat",
+      "/api/alfai/grok/assist",
+      "/api/appearance/request",
+      "/api/auth/biometric/challenge",
+      "/api/auth/biometric/confirm",
+      "/api/auth/webauthn/challenge",
+      "/api/auth/webauthn/verify",
+      "/api/bail/post",
+      "/api/billing",
+      "/api/blockchain/block",
+      "/api/blockchain/peer/sync",
+      "/api/calendar",
+      "/api/crm/contacts",
+      "/api/docs/upload",
+      "/api/efile",
+      "/api/esign",
+      "/api/identity/check",
+      "/api/jurisdiction/rules",
+      "/api/licenses",
+      "/api/licenses/authorize",
+      "/api/licenses/generate",
+      "/api/licensing/config",
+      "/api/mocktrial/run",
+      "/api/onboarding/complete",
+      "/api/paas/device-sms",
+      "/api/schedule/request",
+      "/api/tyler/efile/submit",
+      "/api/user/onboarding/complete",
+      "/api/user/onboarding/idme-checkpoint",
+      "/api/user/onboarding/idme-pin",
+      "/api/video/room",
+      "/api/video/signal"
+    ]
+  },
+  "ui_modules": [
+    {
+      "id": "efileSec",
+      "title": "E-File Filing \u2014 /api/efile"
+    },
+    {
+      "id": "esignSec",
+      "title": "E-Sign Execution \u2014 /api/esign"
+    },
+    {
+      "id": "calSec",
+      "title": "Hearings Calendar \u2014 /api/calendar"
+    },
+    {
+      "id": "appearSec",
+      "title": "Request Virtual Appearance Form \u2014 /api/appearance/request"
+    },
+    {
+      "id": "pilotSec",
+      "title": "Pilot Program PDFs & Info \u2014 /api/pilot/info"
+    },
+    {
+      "id": "docsSec",
+      "title": "Court Docs Upload & Download \u2014 /api/docs/upload & /api/docs/download"
+    },
+    {
+      "id": "courtsSec",
+      "title": "Courts Index (/api/courts/query) & Session Lookup (/api/sessions)"
+    },
+    {
+      "id": "videoRoomSec",
+      "title": "Live Hearing Video Module (WebRTC)"
+    },
+    {
+      "id": "onboardingSec",
+      "title": "Guided Court & Participant Onboarding"
+    },
+    {
+      "id": "jurisdictionRulesSec",
+      "title": "Jurisdiction Rules (NC Pilot Fallback)"
+    },
+    {
+      "id": "docketTrackerSec",
+      "title": "Docket Tracker (CourtListener + Cache)"
+    },
+    {
+      "id": "licensingBillingSec",
+      "title": "Court Licensing & Billing"
+    },
+    {
+      "id": "trSec",
+      "title": "TotalRecall Immutable Audit Log \u2014 /api/totalrecall"
+    },
+    {
+      "id": "paasSmsDeviceSec",
+      "title": "Web & Mobile PaaS \u00b7 SMS Text Consent & Mobile Device Binding"
+    },
+    {
+      "id": "mobileBiometricBridgeSec",
+      "title": "Web & Mobile Biometric Delegation (Zero Stored Biometrics) & Runtime Boot"
+    },
+    {
+      "id": "idmeLiveCheckpointSec",
+      "title": "ID.me / Vendor Live-Agent Checkpoint (Required Before Proceeding)"
+    },
+    {
+      "id": "userOnboardingGateSec",
+      "title": "ID.me 4-Digit PIN Sync, Biometrics, Rules, Fees ($1.99 / $19.99) & Court Approval"
+    },
+    {
+      "id": "serverApprovalBotSec",
+      "title": "Server-Side Approval Bot & Court-Allotted Slots"
+    }
+  ]
+}
