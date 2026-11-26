@@ -8,3 +8,8 @@
 .env*
 __pycache__/
 node_modules/
+data/all_files_build.json
+*.zip
+*.tar.gz
+data/full_compiled_build.json
+data/*build*.json
